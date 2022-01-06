@@ -32,12 +32,12 @@ const client = new discord_js_1.default.Client({
     ]
 });
 client.on('ready', () => {
-    console.log('Bot connected');
+    console.log('Bot connected!');
 });
 client.on('messageCreate', message => {
     if (message.content == 'ping') {
         message.reply({
-            content: 'pong'
+            content: 'pong!!'
         });
     }
 });
