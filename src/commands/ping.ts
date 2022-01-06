@@ -5,7 +5,7 @@ export default {
     description: 'replies w pong',
     slash: true,
     testOnly: true,
-    callback: ({ interaction }) => {
-        interaction.reply('Pong')
+    callback: ({ }) => {
+        return 'pong!'
     }
 } as ICommand

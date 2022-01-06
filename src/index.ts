@@ -12,12 +12,13 @@ const client = new DiscordJS.Client({
 })
 
 client.on('ready', () => {
-    console.log('Bot connected!')
 
     new WOKCommands(client, {
         commandsDir: path.join(__dirname, 'commands'),
+        featuresDir: path.join(__dirname, 'features'),
         typeScript: true,
-        testServers: '587743823015182379'
+        testServers: '587743823015182379',
+        mongoUri: process.env.MONGO_URI,
     })
 })
 
