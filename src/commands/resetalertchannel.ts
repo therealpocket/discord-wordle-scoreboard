@@ -10,7 +10,6 @@ export default {
 
     permissions: ['ADMINISTRATOR'],
     slash: true,
-    testOnly: true,
 
     callback: async ({ guild, interaction, client, member }) => {
         if (!guild) {
