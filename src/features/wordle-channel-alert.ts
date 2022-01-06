@@ -46,7 +46,6 @@ export const loadWordleChannelConfig = async (clint: Client, guild: Guild) => {
     let data = wordleChannelData[guild.id] = [channel, timezone, rule, job]
 }
 
-
 export default async (client: Client) => {
 
     const scanGuilds = () => {
