@@ -61,9 +61,6 @@ export default {
             upsert: true
         })
 
-        // TODO: FIX THIS. idk how to get wordle-channel-alerts to trigger AFTER data is written to mongo db
-        // client.emit('guildMemberRemove', member);
-        // wordleChannelAlert(client, guild);
         loadWordleChannelConfig(client, guild);
 
         return interaction.reply({

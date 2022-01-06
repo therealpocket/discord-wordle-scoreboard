@@ -11,9 +11,11 @@ export const loadWordleChannelConfig = async (clint: Client, guild: Guild) => {
     console.log(`Loading config for ${guild.id} from DB`)
     const schedule = require('node-schedule');
     const results = await wordleChannelConfigSchema.findById(guild.id);
+
     // no config data for server
     if (!results) {
-        return
+        delete wordleChannelData[guild.id];
+        return;
     }
 
     const { channelId, timezone } = results;
