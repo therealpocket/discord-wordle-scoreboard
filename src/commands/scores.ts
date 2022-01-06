@@ -7,7 +7,7 @@ export default {
     category: 'Scoreboard',
     description: 'Wordle Scoreboard',
     slash: true,
-    testOnly: true,
+    // testOnly: true,
     callback: async ({ client, guild, interaction }) => {
         await interaction.deferReply();
 
@@ -22,7 +22,7 @@ export default {
             guildId: guild.id
         })
 
-        const guildScoresEmbed = generateScoreboardEmbed(client, guildScores);
+        const guildScoresEmbed = generateScoreboardEmbed(client, guildScores, 'SCOREBOARD');
 
         await interaction.editReply({
             embeds: [guildScoresEmbed.embed]

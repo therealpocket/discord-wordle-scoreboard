@@ -69,53 +69,38 @@ export const updateScoreboardScore = async (guildId: any, userId: String, totalS
     })
 }
 
-export const generateScoreboardEmbed = (client: Client, guildScores: any) => {
+export const generateScoreboardEmbed = (client: Client, guildScores: any, title: String) => {
 
 
     const sortedGuildScores = guildScores.sort((a: any, b: any) => (a.score < b.score ? 1 : -1))
 
-    const embedUserColumn = [];
+    const embedPlayerColumn = [];
     const embedScoreColumn = [];
     const embedAvgColumn = [];
 
     for (const score of sortedGuildScores) {
-        embedUserColumn.push(client.users.cache.get(score.userId));
+        client.users.fetch(score.userId);
+        embedPlayerColumn.push(client.users.cache.get(score.userId));
         embedScoreColumn.push(score.score);
 
-        embedAvgColumn.push(Math.abs((parseFloat(score.score) / parseFloat(score.plays)) - 7).toFixed(1).replace('.0', ''))
+        embedAvgColumn.push(Math.abs((parseFloat(score.score) / parseFloat(score.plays)) - 7).toFixed(1).replace('.0', '') + '/6')
     }
 
     const embed = new MessageEmbed()
         .setColor('#0099ff')
-        .setTitle(`:green_square: :green_square: :green_square: Scoreboard :green_square: :green_square: :green_square:`)
+        .setTitle(`:green_square: :green_square: :green_square: ${title} :green_square: :green_square: :green_square:`)
         .setURL('https://www.powerlanguage.co.uk/wordle/')
         .setDescription('https://www.powerlanguage.co.uk/wordle/')
         .addFields(
-            { name: 'User', value: embedUserColumn.join('\n'), inline: true },
+            { name: 'Player', value: embedPlayerColumn.join('\n'), inline: true },
             { name: 'Score', value: embedScoreColumn.join('\n'), inline: true },
-            { name: 'Avg', value: embedAvgColumn.join('\n'), inline: true }
+            { name: 'Avg', value: `${embedAvgColumn.join('\n')}`, inline: true }
         );
 
     return {
-        embed: embed
+        embed: embed,
+        players: embedPlayerColumn
     }
-
-    // wordleScoreboardSchema.find({
-    //     guildId: guildId
-    // }, (err, data) => {
-    //     let sortedData = data.sort((a, b) => (a.score < b.score ? 1 : -1))
-    //     console.log(sortedData);
-    //     return sortedData[0].score;
-    // })
-    // return guildId;
-
-    // let x = await wordleScoreboardSchema.find({
-    //     guildId: guildId
-    // })
-
-    // console.log(x);
-
-    // return x[0].score
 }
 
 

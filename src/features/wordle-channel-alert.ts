@@ -1,5 +1,8 @@
 import { Client, Guild, TextChannel } from "discord.js";
 import wordleChannelConfigSchema from "../models/wordle-channel-config-schema";
+import wordleScoreboard, { generateScoreboardEmbed } from "../features/wordle-scoreboard";
+import wordleScoreboardSchema from "../models/wordle-scoreboard-schema";
+
 
 const wordleChannelData = {} as {
     // guildID: [channel, timezone, rule, job]
@@ -7,7 +10,7 @@ const wordleChannelData = {} as {
 }
 
 // once wordle channel config written to db, load it into memeory
-export const loadWordleChannelConfig = async (clint: Client, guild: Guild) => {
+export const loadWordleChannelConfig = async (client: Client, guild: Guild) => {
     console.log(`Loading config for ${guild.id} from DB`)
     const schedule = require('node-schedule');
     const results = await wordleChannelConfigSchema.findById(guild.id);
@@ -32,14 +35,21 @@ export const loadWordleChannelConfig = async (clint: Client, guild: Guild) => {
     else {
         // set rules
         rule = new schedule.RecurrenceRule();
-        rule.hour = 11;
-        rule.minute = 25;
+        rule.hour = 0;
+        rule.minute = 0;
         rule.tz = timezone;
     }
 
     job = schedule.scheduleJob(rule, () => {
-        channel.send({
-            content: 'msg'
+        wordleScoreboardSchema.find({
+            guildId: guild.id
+        }, (err, data) => {
+            const guildScoresEmbed = generateScoreboardEmbed(client, data, 'NEW WORDLE CHALLENGE');
+            channel.send({ content: `${guildScoresEmbed.players.join(' ')}` })
+            channel.send({
+                embeds: [guildScoresEmbed.embed]
+            })
+            // console.log(data);
         })
     })
 
