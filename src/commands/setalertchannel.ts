@@ -14,7 +14,7 @@ export default {
     expectedArgs: '<channel> <timezone>',
 
     slash: true,
-    testOnly: true,
+    // testOnly: true,
 
     options: [
         {
