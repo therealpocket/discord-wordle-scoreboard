@@ -49,7 +49,6 @@ export const loadWordleChannelConfig = async (client: Client, guild: Guild) => {
             channel.send({
                 embeds: [guildScoresEmbed.embed]
             })
-            // console.log(data);
         })
     })
 
