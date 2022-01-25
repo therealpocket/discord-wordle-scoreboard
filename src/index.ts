@@ -21,7 +21,7 @@ client.on('ready', () => {
         mongoUri: process.env.MONGO_URI,
     })
 
-    console.log('0.9')
+    console.log('0.10')
 })
 
 client.login(process.env.TOKEN)

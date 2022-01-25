@@ -56,7 +56,7 @@ export default async (client: Client) => {
             }
 
 
-            if (totalPlays > diffDays){
+            if (totalPlays >= diffDays){
                 message.reply({content: `Error - there should only be ${diffDays} attempts today. (You are at ${totalPlays} attempts)`})
             } else {
 
