@@ -57,7 +57,7 @@ export default async (client: Client) => {
 
 
             if (totalPlays >= diffDays){
-                message.reply({content: `Error - there should only be ${diffDays} attempts today. (You are at ${totalPlays} attempts)`})
+                message.reply({content: `Error - there should only be ${diffDays - 1} attempts today. (You are at ${totalPlays} attempts)`})
             } else {
 
             updateScoreboardScore(message.guild?.id, message.author?.id, totalScore, totalPlays);
