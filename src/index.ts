@@ -20,6 +20,8 @@ client.on('ready', () => {
         testServers: '587743823015182379',
         mongoUri: process.env.MONGO_URI,
     })
+
+    console.log('0.9')
 })
 
 client.login(process.env.TOKEN)

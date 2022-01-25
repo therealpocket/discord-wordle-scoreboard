@@ -35,6 +35,17 @@ export default async (client: Client) => {
             let totalScore: Number;
             let totalPlays: Number;
 
+            // custom code for my server sorry
+
+            let date2:any = new Date();
+            let date1:any = new Date('01/03/2022');
+
+            var diff = Math.abs(date1.getTime() - date2.getTime());
+            var diffDays = Math.ceil(diff / (1000 * 3600 * 24)); 
+
+
+
+
             // no existing score for user (create new document)
             if (!data.length) {
                 totalScore = wordlePoints;
@@ -44,13 +55,18 @@ export default async (client: Client) => {
                 totalPlays = data[0].plays + 1;
             }
 
-            updateScoreboardScore(message.guild?.id, message.author?.id, totalScore, totalPlays);
 
+            if (totalPlays > diffDays){
+                message.reply({content: `Error - there should only be ${diffDays} attempts today. (You are at ${totalPlays} attempts)`})
+            } else {
+
+            updateScoreboardScore(message.guild?.id, message.author?.id, totalScore, totalPlays);
             message.reply({
                 content: `${wordlePoints} for ${message.author}! (${totalScore} pts, ${totalPlays} plays)`
             })
+            console.log(`New score detected by ${message.author}: ${wordlePoints} pts.`) 
+            }
 
-            console.log(`New score detected by ${message.author}: ${wordlePoints} pts.`)
         })
     })
 }

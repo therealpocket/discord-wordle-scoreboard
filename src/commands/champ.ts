@@ -22,7 +22,6 @@ export default {
         })
 
         const guildScoresEmbed = generateScoreboardEmbed(client, guildScores, 'SCOREBOARD');
-        console.log(guildScoresEmbed)
 
         await interaction.editReply({
             content: `👑 BOW DOWN TO ${guildScoresEmbed.players[0]} 👑`

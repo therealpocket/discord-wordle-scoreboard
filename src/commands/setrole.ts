@@ -6,29 +6,23 @@ import wordleChannelAlert, { loadWordleChannelConfig } from '../features/wordle-
 
 export default {
     category: 'Configuration',
-    description: 'Sets the Wordle channel',
+    description: 'Sets the Wordle role',
 
     permissions: ['ADMINISTRATOR'],
 
-    minArgs: 2,
-    expectedArgs: '<channel> <timezone>',
+    minArgs: 1,
+    expectedArgs: '<role>',
 
     slash: true,
     testOnly: true,
 
     options: [
         {
-            name: 'channel',
-            description: 'Target channel',
+            name: 'role',
+            description: 'Target Role',
             required: true,
             type: DiscordJS.Constants.ApplicationCommandOptionTypes.CHANNEL
-        },
-        {
-            name: 'timezone',
-            description: 'Timezone',
-            required: true,
-            type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
-        },
+        }
     ],
 
     callback: async ({ guild, interaction, client, member }) => {

@@ -45,9 +45,13 @@ export const loadWordleChannelConfig = async (client: Client, guild: Guild) => {
             guildId: guild.id
         }, (err, data) => {
             const guildScoresEmbed = generateScoreboardEmbed(client, data, 'NEW WORDLE CHALLENGE');
-            channel.send({ content: `${guildScoresEmbed.players.join(' ')}` })
+            channel.send({ 
+                content: `${guildScoresEmbed.players.join(' ')}` })
             channel.send({
                 embeds: [guildScoresEmbed.embed]
+            }),
+            channel.send({
+                content:`👑 BOW DOWN TO ${guildScoresEmbed.players[0]} 👑`
             })
         })
     })
