@@ -51,10 +51,9 @@ export const loadWordleChannelConfig = async (client: Client, guild: Guild) => {
             channel.send({
                 embeds: [guildScoresEmbed.embed]
             })
-            // ,
-            // channel.send({
-            //     content:`👑 BOW DOWN TO ${guildScoresEmbed.players[0]} 👑`
-            // })
+            channel.send({
+                content: `👑 BOW DOWN TO ${guildScoresEmbed.topPlayers.join(' + ')} 👑`
+            })
         })
     })
 
