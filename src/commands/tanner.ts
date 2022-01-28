@@ -24,7 +24,7 @@ export default {
         const guildScoresEmbed = generateScoreboardEmbed(client, guildScores, 'SCOREBOARD');
 
         await interaction.editReply({
-            content: `👑 BOW DOWN TO ${client.users.cache.get('329439633647730691')} NOT BECAUSE HE HAS THE HIGHEST CORE BUT BECAUSE HE'S JUST A GOOD GUY 👑`
+            content: `👑 BOW DOWN TO ${client.users.cache.get('329439633647730691')} NOT BECAUSE HE HAS THE HIGHEST SCORE BUT BECAUSE HE'S JUST A GOOD GUY 👑`
         });
 
     }
