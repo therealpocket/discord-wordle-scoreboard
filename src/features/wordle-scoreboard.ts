@@ -37,11 +37,11 @@ export default async (client: Client) => {
 
             // custom code for my server sorry
 
-            let date2:any = new Date();
-            let date1:any = new Date('01/03/2022');
+            let date2: any = new Date();
+            let date1: any = new Date('01/03/2022');
 
             var diff = Math.abs(date1.getTime() - date2.getTime());
-            var diffDays = Math.ceil(diff / (1000 * 3600 * 24)); 
+            var diffDays = Math.ceil(diff / (1000 * 3600 * 24));
 
 
 
@@ -56,15 +56,15 @@ export default async (client: Client) => {
             }
 
 
-            if (totalPlays >= diffDays){
-                message.reply({content: `🚨 Error - there should only be ${diffDays - 1} attempts today (You are at ${totalPlays} attempts).`})
+            if (totalPlays >= diffDays) {
+                message.reply({ content: `🚨 Error - there should only be ${diffDays - 1} attempts today (You are at ${totalPlays} attempts).` })
             } else {
 
-            updateScoreboardScore(message.guild?.id, message.author?.id, totalScore, totalPlays);
-            message.reply({
-                content: `${wordlePoints} for ${message.author}! (${totalScore} pts, ${totalPlays} plays)`
-            })
-            console.log(`New score detected by ${message.author}: ${wordlePoints} pts.`) 
+                updateScoreboardScore(message.guild?.id, message.author?.id, totalScore, totalPlays);
+                message.reply({
+                    content: `${wordlePoints} for ${message.author}! (${totalScore} pts, ${totalPlays} plays)`
+                })
+                console.log(`New score detected by ${message.author}: ${wordlePoints} pts.`)
             }
 
         })
@@ -94,10 +94,18 @@ export const generateScoreboardEmbed = (client: Client, guildScores: any, title:
     const embedScoreColumn = [];
     const embedAvgColumn = [];
 
+    let topScore = 0;
+    let topPlayers = [];
+
     for (const score of sortedGuildScores) {
         client.users.fetch(score.userId);
         embedPlayerColumn.push(client.users.cache.get(score.userId));
         embedScoreColumn.push(score.score);
+
+        if (score.score >= topScore) {
+            topScore = score.score;
+            topPlayers.push(client.users.cache.get(score.userId));
+        }
 
         embedAvgColumn.push(Math.abs((parseFloat(score.score) / parseFloat(score.plays)) - 7).toFixed(1).replace('.0', '') + '/6')
     }
@@ -115,7 +123,8 @@ export const generateScoreboardEmbed = (client: Client, guildScores: any, title:
 
     return {
         embed: embed,
-        players: embedPlayerColumn
+        players: embedPlayerColumn,
+        topPlayers: topPlayers
     }
 }
 
