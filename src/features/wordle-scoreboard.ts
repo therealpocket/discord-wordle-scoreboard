@@ -13,7 +13,7 @@ export default async (client: Client) => {
     client.on('messageCreate', (message) => {
 
         if (!message.guild) return;
-        const wordleRegex = /Wordle \d{3} ([123456X])\/6\n{0,2}[⬛🟩🟨⬜]{5}/;
+        const wordleRegex = /Wordle \d{3} ([123456X])\/6\**\n{0,2}[⬛🟩🟨⬜]{5}/;
         const wordleMessage = message.content.match(wordleRegex);
 
         if (!wordleMessage) return;
