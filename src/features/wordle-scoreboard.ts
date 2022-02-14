@@ -64,22 +64,28 @@ export default async (client: Client) => {
 
                 let golf;
 
-                switch (wordleMessage[1]) {
-                    case '6':
+                switch (parseInt(wordleMessage[1])) {
+                    case 6:
                         golf = 'DOUBLE BOGEY!';
-                    case '5':
+                        break;
+                    case 5:
                         golf = 'BOGEY!';
-                    case '4':
+                        break;
+                    case 4:
                         golf = 'PAR!';
-                    case '3':
+                        break;
+                    case 3:
                         golf = 'BIRDIE!';
-                    case '2':
+                        break;
+                    case 2:
                         golf = 'EAGLE!';
-                    case '1':
+                        break;
+                    case 1:
                         golf = 'HOLE IN ONE!';
+                        break;
                 }
                 message.reply({
-                    content: `${golf} ${wordlePoints} for ${message.author}! (${totalScore} pts, ${totalPlays} plays)`
+                    content: `${wordlePoints} for ${message.author}! (${totalScore} pts, ${totalPlays} plays)`
                 })
                 console.log(`New score detected by ${message.author}: ${wordlePoints} pts.`)
             }
