@@ -1,6 +1,9 @@
 import { Client, Guild, Message, TextChannel, User, MessageEmbed } from "discord.js";
 import wordleScoreboardSchema from "../models/wordle-scoreboard-schema";
 
+import fetch from 'node-fetch';
+
+
 // const wordleScoreboardData = {} as {
 //     // guildID: [channel, timezone, rule, job]
 //     [key: string]: [TextChannel, string, any, any]
@@ -10,7 +13,10 @@ import wordleScoreboardSchema from "../models/wordle-scoreboard-schema";
 
 export default async (client: Client) => {
     // listen for posted wordle score
-    client.on('messageCreate', (message) => {
+    client.on('messageCreate', async (message) => {
+
+        const response = await fetch('https://complimentr.com/api');
+        const compliment = await response.json();
 
         if (!message.guild) return;
         const wordleRegex = /Wordle \d{3} ([123456X])\/6\**\n{0,2}[⬛🟩🟨⬜]{5}/;
@@ -84,8 +90,10 @@ export default async (client: Client) => {
                         golf = 'HOLE IN ONE!';
                         break;
                 }
+
+
                 message.reply({
-                    content: `${wordlePoints} for ${message.author}! (${totalScore} pts, ${totalPlays} plays)`
+                    content: `${message.author} ${compliment.compliment}. ${wordlePoints} pts! (${totalScore} pts, ${totalPlays} plays)`
                 })
                 console.log(`New score detected by ${message.author}: ${wordlePoints} pts.`)
             }
