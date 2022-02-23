@@ -15,8 +15,14 @@ export default async (client: Client) => {
     // listen for posted wordle score
     client.on('messageCreate', async (message) => {
 
-        const response = await fetch('https://complimentr.com/api');
-        const compliment = await response.json();
+        try {
+            const response = await fetch('https://complimentr.com/api');
+            const compliment = await response.json();
+        } catch {
+            const compliment = '';
+        }
+
+
 
         if (!message.guild) return;
         const wordleRegex = /Wordle \d{3} ([123456X])\/6\**\n{0,2}[⬛🟩🟨⬜]{5}/;
