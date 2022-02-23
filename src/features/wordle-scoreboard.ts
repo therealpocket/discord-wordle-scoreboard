@@ -14,7 +14,7 @@ import fetch from 'node-fetch';
 export default async (client: Client) => {
     // listen for posted wordle score
     client.on('messageCreate', async (message) => {
-        const compliment: any;
+        let compliment: any;
         try {
             const response = await fetch('https://complimentr.com/api');
             compliment = await response.json();
